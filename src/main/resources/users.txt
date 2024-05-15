@@ -1,1 +1,1 @@
-[{"username":"AI_JavaBackend","firstname":"ZUBAYR","lastname":"👑","state":"REGISTER","id":6343483561,"baseState":"MAIN_MENU"}]
+[{"username":"AI_JavaBackend","firstname":"ZUBAYR","lastname":"👑","state":"REGISTER","id":6343483561,"baseState":"MAIN_MENU"},{"username":"Gayrat_Shirinboyev","firstname":"G\u0027ayrat","lastname":"Shirinboyev 👑","state":"REGISTER","id":1712225965,"baseState":"MAIN_MENU"}]

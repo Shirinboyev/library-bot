@@ -29,17 +29,19 @@ public class UserServiceImp  implements UserService , PathConstants{
     @Override
     public void save(MyUser myUser) {
         List<MyUser> users = writerAndLoader.load(MyUser.class);
+        boolean found = false;
         for (int i = 0; i < users.size(); i++) {
             MyUser cur = users.get(i);
-            if (Objects.equals(cur.getId(),myUser.getId())){
-                users.set(i,myUser);
-                writerAndLoader.write(users);
-                return;
+            if (Objects.equals(cur.getId(), myUser.getId())) {
+                users.set(i, myUser);
+                found = true;
+                break;
             }
         }
-        users.add(myUser);
+        if (!found) {
+            users.add(myUser);
+        }
         writerAndLoader.write(users);
-        return;
     }
 
     @Override

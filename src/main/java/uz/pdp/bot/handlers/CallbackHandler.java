@@ -3,6 +3,7 @@ package uz.pdp.bot.handlers;
 import com.pengrad.telegrambot.model.CallbackQuery;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.User;
+import com.pengrad.telegrambot.request.SendMessage;
 import uz.pdp.bot.states.BaseState;
 
 import java.util.Objects;
@@ -43,7 +44,11 @@ public class CallbackHandler extends BaseHandler {
     }
 
     private void mainSate() {
-
+        curUser.setState(BaseState.MAIN_STATE.name());
+        userService.save(curUser);
+        SendMessage sendMessage = messageMaker.mainMenu(curUser);
+        bot.execute(sendMessage);
     }
+
 
 }

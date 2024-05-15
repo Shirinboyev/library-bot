@@ -5,14 +5,13 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.User;
 import com.pengrad.telegrambot.request.DeleteMessage;
 import uz.pdp.backend.baen.BeanController;
-import uz.pdp.backend.enums.UserState;
-import uz.pdp.backend.maker.MessageMaker;
+import uz.pdp.bot.maker.MessageMaker;
 import uz.pdp.backend.model.user.MyUser;
 import uz.pdp.backend.service.bookService.BadiyService;
+import uz.pdp.backend.service.bookService.BookService;
 import uz.pdp.backend.service.bookService.FantastikService;
 import uz.pdp.backend.service.bookService.RomantikService;
 import uz.pdp.backend.service.userService.UserService;
-import uz.pdp.bot.states.BaseState;
 import uz.pdp.bot.states.child.MainState;
 
 import static uz.pdp.bot.myBot.MyBot.BOT_TOKEN;
@@ -26,11 +25,13 @@ public abstract class BaseHandler  {
     protected RomantikService romantikService;
     protected BadiyService badiyService;
     protected FantastikService fantastikService;
+    protected BookService bookService;
     protected static MessageMaker messageMaker;
 
     public BaseHandler() {
         this.bot = new TelegramBot(BOT_TOKEN);
         this.userService = BeanController.userServiceByThreadLocal.get();
+        this.bookService = BeanController.bookServiceByThreadLocal.get();
         this.romantikService = BeanController.romantikServiceByThreadLocal.get();
         this.badiyService = BeanController.badiyServiceByThreadLocal.get();
         this.fantastikService = BeanController.fantastikServiceByThreadLocal.get();
