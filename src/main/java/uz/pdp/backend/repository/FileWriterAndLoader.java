@@ -1,7 +1,6 @@
 package uz.pdp.backend.repository;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -20,16 +19,17 @@ public class FileWriterAndLoader<M> {
         this.gson = new Gson();
     }
 
-    public synchronized void write(List<M> list){
+    public synchronized void write(List<M> list) {
         String json = gson.toJson(list);
         try {
             Files.writeString(path, json);
+            System.out.println();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public synchronized List<M> load(Class<M> mClass){
+    public synchronized List<M> load(Class<M> mClass) {
         try {
             String json = Files.readString(path);
             Type type = TypeToken.getParameterized(List.class, mClass).getType();

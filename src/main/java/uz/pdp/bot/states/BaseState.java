@@ -7,7 +7,7 @@ public enum BaseState {
 
 
 
-    MAIN_STATE,
+    MAIN_MENU,
     ROMANTIK_STATE,
     BADIY_STATE,
     FANTASTIK_STATE,;

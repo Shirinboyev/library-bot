@@ -19,36 +19,33 @@ public class CallbackHandler extends BaseHandler {
         super.update = update;
         String baseStateString = curUser.getBaseState();
         BaseState baseState = BaseState.valueOf(baseStateString);
-        if (Objects.equals(baseState,BaseState.MAIN_STATE)){
-            mainSate();
-        }else if (Objects.equals(baseState,BaseState.ROMANTIK_STATE)){
+        if (Objects.equals(baseState, BaseState.MAIN_MENU)) {
+            mainState();
+        } else if (Objects.equals(baseState, BaseState.ROMANTIK_STATE)) {
             romantik();
-        }else if (Objects.equals(baseState,BaseState.BADIY_STATE)){
+        } else if (Objects.equals(baseState, BaseState.BADIY_STATE)) {
             badiy();
-        } else if (Objects.equals(baseState,BaseState.FANTASTIK_STATE)){
+        } else if (Objects.equals(baseState, BaseState.FANTASTIK_STATE)) {
             fantastik();
         }
-
     }
 
     private void fantastik() {
-
     }
 
     private void badiy() {
-
     }
 
     private void romantik() {
-
     }
 
-    private void mainSate() {
-        curUser.setState(BaseState.MAIN_STATE.name());
+    private void mainState() {
+        curUser.setState(BaseState.MAIN_MENU.name());
         userService.save(curUser);
         SendMessage sendMessage = messageMaker.mainMenu(curUser);
         bot.execute(sendMessage);
     }
-
-
 }
+
+
+

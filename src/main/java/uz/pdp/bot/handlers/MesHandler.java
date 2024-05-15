@@ -16,52 +16,49 @@ import java.util.Objects;
 
 import static uz.pdp.bot.myBot.MyBot.bot;
 
-public class MesHandler  extends BaseHandler {
+/*
+public class MesHandler extends BaseHandler {
     @Override
-    public void handle(Update update){
+    public void handle(Update update) {
         Message message = update.message();
+        if (message == null) {
+            // Agar habar bo'sh bo'lsa, qaytib ketamiz
+            return;
+        }
         User from = message.from();
         super.update = update;
         super.curUser = getUserOrCreate(from);
         String text = message.text();
 
-        if (text.equals("/start")){
-            SendMessage sendMessage = new SendMessage(from.id(),"Assalomu Alaykum " + curUser.getFirstname() + " " + curUser.getLastname() + "\nBotga xush kelibsiz");
+        if (text != null && text.equals("/start")) {
+            SendMessage sendMessage = new SendMessage(from.id(), "Assalomu Alaykum " + curUser.getFirstname() + " " + curUser.getLastname() + "\nBotga xush kelibsiz");
             bot.execute(sendMessage);
-            if (Objects.isNull(curUser.getPhoneNumber()) || curUser.getPhoneNumber().isEmpty()){
+            if (Objects.isNull(curUser.getPhoneNumber()) || curUser.getPhoneNumber().isEmpty()) {
                 enterPhoneNumber();
                 curUser.setState(MainState.REGISTER.name());
                 userService.save(curUser);
             } else {
                 mainMenu();
             }
-        }
-
-        else {
+        } else {
             String baseStateString = curUser.getBaseState();
             BaseState baseState = BaseState.valueOf(baseStateString);
-            if (Objects.equals(baseState, BaseState.MAIN_STATE)){
+            if (Objects.equals(baseState, BaseState.MAIN_MENU)) {
                 mainState();
-            }
-            else if(Objects.equals(baseState, BaseState.ADD_BOOK_STATE)){
+            } else if (Objects.equals(baseState, BaseState.ADD_BOOK_STATE)) {
                 addBookState();
-            }
-            else if(Objects.equals(baseState, BaseState.SEARCH_BOOK_STATE)){
+            } else if (Objects.equals(baseState, BaseState.SEARCH_BOOK_STATE)) {
                 searchBookState();
             }
         }
     }
 
     private void searchBookState() {
-
-    }
-
-    private void addBookState() {
-    }
-
-/*
-    private void searchBookState() {
         Message message = update.message();
+        if (message == null) {
+            // Agar habar bo'sh bo'lsa, qaytib ketamiz
+            return;
+        }
         String text = message.text();
         if (text != null && !text.isEmpty()) {
             List<Book> searchResults = performSearch(text);
@@ -70,6 +67,7 @@ public class MesHandler  extends BaseHandler {
             bot.execute(new SendMessage(curUser.getId(), "You didn't enter any text for searching."));
         }
     }
+
     private List<Book> performSearch(String searchText) {
         return bookService.searchBooks(searchText);
     }
@@ -85,8 +83,9 @@ public class MesHandler  extends BaseHandler {
             bot.execute(new SendMessage(curUser.getId(), resultMessage.toString()));
         }
     }
-*/
 
+    private void addBookState() {
+    }
 
     private void fantastikState() {
     }
@@ -97,21 +96,23 @@ public class MesHandler  extends BaseHandler {
     private void romantikState() {
     }
 
-
     private void mainState() {
         String stateStr = curUser.getState();
-        MainState state =  MainState.valueOf(stateStr);
+        MainState state = MainState.valueOf(stateStr);
         switch (state) {
             case REGISTER -> {
                 Message message = update.message();
+                if (message == null) {
+                    // Agar habar bo'sh bo'lsa, qaytib ketamiz
+                    return;
+                }
                 Contact contact = message.contact();
                 if (contact != null) {
                     String phoneNumber = contact.phoneNumber();
                     curUser.setPhoneNumber(phoneNumber);
                     userService.save(curUser);
                     mainMenu();
-                }
-                else {
+                } else {
                     incorrectData("Phone Number");
                 }
             }
@@ -121,7 +122,7 @@ public class MesHandler  extends BaseHandler {
     private void mainMenu() {
         SendMessage sendMessage = messageMaker.mainMenu(curUser);
         bot.execute(sendMessage);
-        curUser.setState(BaseState.MAIN_STATE.name());
+        curUser.setState(BaseState.MAIN_MENU.name());
         userService.save(curUser);
     }
 
@@ -130,7 +131,127 @@ public class MesHandler  extends BaseHandler {
         bot.execute(sendMessage);
     }
 
-    private void incorrectData(String data  ) {
-        bot.execute(new SendMessage(curUser.getId(),"You entered incorrect " + data));
+    private void incorrectData(String data) {
+        bot.execute(new SendMessage(curUser.getId(), "You entered incorrect " + data));
     }
 }
+*/
+public class MesHandler extends BaseHandler {
+    @Override
+    public void handle(Update update) {
+        Message message = update.message();
+        if (message == null) {
+            // Agar habar bo'sh bo'lsa, qaytib ketamiz
+            return;
+        }
+        User from = message.from();
+        super.update = update;
+        super.curUser = getUserOrCreate(from);
+        String text = message.text();
+
+        if (text != null && text.equals("/start")) {
+            SendMessage sendMessage = new SendMessage(from.id(), "Assalomu Alaykum " + curUser.getFirstname() + "\nBotga xush kelibsiz");
+            bot.execute(sendMessage);
+            if (Objects.isNull(curUser.getPhoneNumber()) || curUser.getPhoneNumber().isEmpty()) {
+                enterPhoneNumber();
+                curUser.setState(MainState.REGISTER.name());
+                userService.save(curUser);
+            } else {
+                mainMenu();
+            }
+        } else {
+            String baseStateString = curUser.getBaseState();
+            BaseState baseState = BaseState.valueOf(baseStateString);
+            if (Objects.equals(baseState, BaseState.MAIN_MENU)) {
+                mainState();
+            } else if (Objects.equals(baseState, BaseState.ADD_BOOK_STATE)) {
+                addBookState();
+            } else if (Objects.equals(baseState, BaseState.SEARCH_BOOK_STATE)) {
+                searchBookState();
+            }
+        }
+    }
+
+    private void searchBookState() {
+        Message message = update.message();
+        if (message == null) {
+            // Agar habar bo'sh bo'lsa, qaytib ketamiz
+            return;
+        }
+        String text = message.text();
+        if (text != null && !text.isEmpty()) {
+            List<Book> searchResults = performSearch(text);
+            sendSearchResults(searchResults);
+        } else {
+            bot.execute(new SendMessage(curUser.getId(), "You didn't enter any text for searching."));
+        }
+    }
+
+    private List<Book> performSearch(String searchText) {
+        return bookService.searchBooks(searchText);
+    }
+
+    private void sendSearchResults(List<Book> searchResults) {
+        if (searchResults.isEmpty()) {
+            bot.execute(new SendMessage(curUser.getId(), "No books found matching your search."));
+        } else {
+            StringBuilder resultMessage = new StringBuilder("Search results:\n");
+            for (Book book : searchResults) {
+                resultMessage.append("- ").append(book.getName()).append("\n");
+            }
+            bot.execute(new SendMessage(curUser.getId(), resultMessage.toString()));
+        }
+    }
+
+    private void addBookState() {
+    }
+
+    private void fantastikState() {
+    }
+
+    private void badiyState() {
+    }
+
+    private void romantikState() {
+    }
+
+    private void mainState() {
+        String stateStr = curUser.getState();
+        MainState state = MainState.valueOf(stateStr);
+        switch (state) {
+            case REGISTER -> {
+                Message message = update.message();
+                if (message == null) {
+                    // Agar habar bo'sh bo'lsa, qaytib ketamiz
+                    return;
+                }
+                Contact contact = message.contact();
+                if (contact != null) {
+                    String phoneNumber = contact.phoneNumber();
+                    curUser.setPhoneNumber(phoneNumber);
+                    userService.save(curUser);
+                    mainMenu();
+                } else {
+                    incorrectData("Phone Number");
+                }
+            }
+        }
+    }
+
+    private void mainMenu() {
+        SendMessage sendMessage = messageMaker.mainMenu(curUser);
+        bot.execute(sendMessage);
+        curUser.setState(BaseState.MAIN_MENU.name());
+        userService.save(curUser);
+    }
+
+    private void enterPhoneNumber() {
+        SendMessage sendMessage = messageMaker.enterPhoneNumber(curUser);
+        bot.execute(sendMessage);
+    }
+
+    private void incorrectData(String data) {
+        bot.execute(new SendMessage(curUser.getId(), "You entered incorrect " + data));
+    }
+}
+
