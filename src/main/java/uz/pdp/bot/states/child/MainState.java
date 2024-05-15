@@ -5,7 +5,7 @@ import uz.pdp.bot.states.State;
 
 public enum MainState implements State {
     REGISTER,
-    MAIN_MENU
+    SELECT_GENRE, MAIN_MENU
 
 
 }

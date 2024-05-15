@@ -35,5 +35,14 @@ public class MessageMaker {
         sendMessage.replyMarkup(replyKeyboardMarkup);
         return sendMessage;
     }
+    public Keyboard selectBookGenre(){
+        KeyboardButton[][] buttons = {
+                {new KeyboardButton("Fantastic Book"),
+                        new KeyboardButton("Badiy Book"),
+                        new KeyboardButton("Romantic Book")}
+        };
+        return new ReplyKeyboardMarkup(buttons).oneTimeKeyboard(true).resizeKeyboard(true);
+    }
+
 }
 
