@@ -16,7 +16,10 @@ public class FileWriterAndLoader<M> {
 
     public FileWriterAndLoader(String path) {
         this.path = Path.of(path);
-        this.gson = new Gson();
+        this.gson = new Gson().newBuilder()
+                .setPrettyPrinting()
+                .serializeNulls()
+                .create();
     }
 
     public synchronized void write(List<M> list) {
