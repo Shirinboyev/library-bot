@@ -14,5 +14,9 @@ public class MyUser {
     private String firstname;
     private String lastname;
     private String phoneNumber;
-    private UserState state;
+    private String state;
+    private Long id;
+    private String baseState;
+
+
 }

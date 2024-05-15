@@ -1,5 +1,7 @@
 package uz.pdp.bot.states.child;
 
-public enum BadiyState {
+import uz.pdp.bot.states.State;
+
+public enum BadiyState implements State {
     BADIY_MENU_STATE
 }

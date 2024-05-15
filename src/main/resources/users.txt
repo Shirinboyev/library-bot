@@ -1,0 +1,1 @@
+[{"username":"AI_JavaBackend","firstname":"ZUBAYR","lastname":"👑","state":"REGISTER","id":6343483561,"baseState":"MAIN_MENU"}]
