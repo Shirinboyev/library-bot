@@ -3,6 +3,12 @@ package uz.pdp.bot.states;
 public enum BaseState {
 
     ADD_BOOK_STATE,
+
+    ADD_BOOK_AUTHOR,
+    ADD_BOOK_GENRE,
+    ADD_BOOK_FILE,
+
+
     SEARCH_BOOK_STATE,
 
 

@@ -17,6 +17,7 @@ public class MyUser {
     private String state;
     private Long id;
     private String baseState;
+    private String tempData;
 
 
 }

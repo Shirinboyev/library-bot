@@ -12,6 +12,7 @@ import uz.pdp.backend.service.bookService.BookService;
 import uz.pdp.backend.service.bookService.FantastikService;
 import uz.pdp.backend.service.bookService.RomantikService;
 import uz.pdp.backend.service.userService.UserService;
+import uz.pdp.bot.states.BaseState;
 import uz.pdp.bot.states.child.MainState;
 
 import static uz.pdp.bot.myBot.MyBot.BOT_TOKEN;
@@ -27,6 +28,7 @@ public abstract class BaseHandler  {
     protected FantastikService fantastikService;
     protected BookService bookService;
     protected static MessageMaker messageMaker;
+    protected BaseState baseState;
 
     public BaseHandler() {
         this.bot = new TelegramBot(BOT_TOKEN);

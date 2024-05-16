@@ -3,45 +3,30 @@
     "username": "Gayrat_Shirinboyev",
     "firstname": "G\u0027ayrat",
     "lastname": "Shirinboyev 👑",
-    "phoneNumber": "998979341277",
+    "phoneNumber": "+998979341277",
     "state": "MAIN_MENU",
     "id": 1712225965,
-    "baseState": "MAIN_MENU"
+    "baseState": "ADD_BOOK_FILE",
+    "tempData": "ad\nFantastic"
   },
   {
     "username": "JavaBackend_AI",
     "firstname": "G\u0027ayrat Shirinboyev 👑",
     "lastname": null,
-    "phoneNumber": "998973956707",
+    "phoneNumber": "+998973956707",
     "state": "MAIN_MENU",
     "id": 5980239060,
-    "baseState": "MAIN_MENU"
+    "baseState": "ADD_BOOK_FILE",
+    "tempData": "asdf\ndfa"
   },
   {
-    "username": "islom2o_o5",
-    "firstname": "islom",
-    "lastname": null,
-    "phoneNumber": "+998500548805",
+    "username": "Boqinazarov_Mansurbek",
+    "firstname": "Mansurbek",
+    "lastname": "Boqinazarov",
+    "phoneNumber": "+998911552498",
     "state": "MAIN_MENU",
-    "id": 6335071987,
-    "baseState": "MAIN_MENU"
-  },
-  {
-    "username": "AI_JavaBackend",
-    "firstname": "ZUBAYR",
-    "lastname": "👑",
-    "phoneNumber": "+998935513634",
-    "state": "MAIN_MENU",
-    "id": 6343483561,
-    "baseState": "MAIN_MENU"
-  },
-  {
-    "username": "umar_successor",
-    "firstname": "ℕ𝕚𝕪𝕠𝕫𝕓𝕠𝕪𝕖𝕧👨‍💻",
-    "lastname": null,
-    "phoneNumber": "998884063993",
-    "state": "MAIN_MENU",
-    "id": 6532431492,
-    "baseState": "MAIN_MENU"
+    "id": 5127045086,
+    "baseState": "MAIN_MENU",
+    "tempData": null
   }
 ]

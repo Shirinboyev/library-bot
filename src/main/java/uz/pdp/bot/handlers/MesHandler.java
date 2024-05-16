@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.User;
 import com.pengrad.telegrambot.request.SendDocument;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.request.SendPhoto;
 import com.pengrad.telegrambot.response.SendResponse;
 import uz.pdp.backend.model.book.Book;
 import uz.pdp.backend.model.user.MyUser;
@@ -31,6 +32,7 @@ public class MesHandler extends BaseHandler {
         super.curUser = getUserOrCreate(from);
         String text = message.text();
 
+
         if (text != null && text.equals("/start")) {
             SendMessage sendMessage = new SendMessage(from.id(), "Assalomu Alaykum " + curUser.getFirstname() + "\nBotga xush kelibsiz");
             bot.execute(sendMessage);
@@ -38,23 +40,29 @@ public class MesHandler extends BaseHandler {
                 enterPhoneNumber();
                 curUser.setState(MainState.REGISTER.name());
                 userService.save(curUser);
-            }
-            else mainMenu();
+            } else mainMenu();
+
         }
-        else if (Objects.equals(text,"Add Book")) {
-            SendMessage sendMessage = new SendMessage(from.id(),"Hozircha haqat Search Book ishlayabdi");
-            bot.execute(sendMessage);
+        String baseStateString = curUser.getBaseState();
+        BaseState baseState = BaseState.valueOf(baseStateString);
+
+        if (Objects.equals(text, "Add Book")) {
+            File photoFile = new File("src/main/resources/2c560e90e21a4a8596adf5d8b35266db.png~tplv-6bxrjdptv7-image.png");
+
+            SendPhoto sendPhoto = new SendPhoto(from.id(),photoFile);
+            bot.execute(sendPhoto);
         }
-        else if (Objects.equals(text,"Search Book")) {
-            SendMessage sendMessage = new SendMessage(from.id(),"Janrlardan brini tanlang");
-            if (text.equals("Back")){
+
+
+        else if (Objects.equals(text, "Search Book")) {
+            SendMessage sendMessage = new SendMessage(from.id(), "Janrlardan brini tanlang");
+            if (text.equals("Back")) {
                 messageMaker.handleBackButton(from.id());
             }
             sendMessage.replyMarkup(messageMaker.selectBookGenre());
 
             bot.execute(sendMessage);
-        }
-        else if (Objects.equals(text,"Fantastic Book")) {
+        } else if (Objects.equals(text, "Fantastic Book")) {
             String fantasticBook = """
                     1. /Harry_Poter_Falsafiy_tosh
                     2. /Harry_Poter_Maxfiy_xujra
@@ -62,24 +70,22 @@ public class MesHandler extends BaseHandler {
                     4. /Harry_Poter_Otashli_jom
                     5. /Harry_Poter_Kaknus_ordeni
                     6. /Harry_Poter_Chalazot_shaxzoda
-                    
+                                        
                     7. /Gulliverning_Sayohatlari
-                    
+                                        
                     """;
-            bot.execute(new SendMessage( from.id(),fantasticBook));
+            bot.execute(new SendMessage(from.id(), fantasticBook));
 
-        } else if (Objects.equals(text,"Romantic Book")){
+        } else if (Objects.equals(text, "Romantic Book")) {
             String romantikBook = """
                     1. /Ravshan_Xalq_dostoni
                     2. /Alpomish
                     3. /Farhod_Shirin
                     4. /Tosiqlarga_qaramay_sevdik
                     """;
-            bot.execute(new SendMessage( from.id(),romantikBook));
+            bot.execute(new SendMessage(from.id(), romantikBook));
 
-        }
-
-        else if (Objects.equals(text,"Badiy Book")) {
+        } else if (Objects.equals(text, "Badiy Book")) {
             String badiyBook = """
                     1. /Abdulla_Qahhor_Hikoyalari
                     2. /Anor_Oq_korfaz
@@ -89,25 +95,20 @@ public class MesHandler extends BaseHandler {
                     6. /Otkish_Hoshimov_Dunyoning_Ishlari
                                        
                     """;
-            bot.execute(new SendMessage( from.id(),badiyBook));
+            bot.execute(new SendMessage(from.id(), badiyBook));
 
-        }
-        else if (Objects.equals(text,"Diniy Books")){
+        } else if (Objects.equals(text, "Diniy Books")) {
             String diniyBooks = """
                     1. /Duolar_kitobi
                     2. /men_ham_namoz_oqiyman
                     3. /Paygambarlar_tarixi
                     4. /Suralar
                     """;
-            bot.execute(new SendMessage( from.id(),diniyBooks));
-        }
-        else if(Objects.equals(text,"Back")){
+            bot.execute(new SendMessage(from.id(), diniyBooks));
+        } else if (Objects.equals(text, "Back")) {
             mainMenu();
-        }
-
-        else {
-            String baseStateString = curUser.getBaseState();
-            BaseState baseState = BaseState.valueOf(baseStateString);
+        } else {
+            baseState = BaseState.valueOf(baseStateString);
             if (Objects.equals(baseState, BaseState.MAIN_MENU)) {
                 mainState();
             } else if (Objects.equals(baseState, BaseState.ADD_BOOK_STATE)) {
@@ -115,7 +116,8 @@ public class MesHandler extends BaseHandler {
             } else if (Objects.equals(baseState, BaseState.SEARCH_BOOK_STATE)) {
                 searchBookState();
             }
-        }switch (text){
+        }
+        switch (text) {
             case "/Harry_Poter_Falsafiy_tosh" -> sendDocument(new File("src/main/resources/fantastikBooks/1.Garri Potter va Falsafiy tosh.pdf"));
             case "/Harry_Poter_Maxfiy_xujra" -> sendDocument(new File("src/main/resources/fantastikBooks/2.Garri Potter va Maxfiy xujra.pdf"));
             case "/Harry_Poter_Azkaban_maxbusi" -> sendDocument(new File("src/main/resources/fantastikBooks/3.Garri Potter va Azkaban maxbusi.pdf"));
