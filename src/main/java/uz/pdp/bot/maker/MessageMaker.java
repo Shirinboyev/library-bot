@@ -25,9 +25,7 @@ public class MessageMaker {
                     {new KeyboardButton("Back")}
             };
         }
-        else {
 
-        }
 
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(buttons).oneTimeKeyboard(true).resizeKeyboard(true);
         sendMessage.replyMarkup(replyKeyboardMarkup);

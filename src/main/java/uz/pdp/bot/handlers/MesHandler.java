@@ -41,6 +41,10 @@ public class MesHandler extends BaseHandler {
             }
             else mainMenu();
         }
+        else if (Objects.equals(text,"Add Book")) {
+            SendMessage sendMessage = new SendMessage(from.id(),"Hozircha haqat Search Book ishlayabdi");
+            bot.execute(sendMessage);
+        }
         else if (Objects.equals(text,"Search Book")) {
             SendMessage sendMessage = new SendMessage(from.id(),"Janrlardan brini tanlang");
             if (text.equals("Back")){
@@ -96,6 +100,9 @@ public class MesHandler extends BaseHandler {
                     4. /Suralar
                     """;
             bot.execute(new SendMessage( from.id(),diniyBooks));
+        }
+        else if(Objects.equals(text,"Back")){
+            messageMaker.handleBackButton(from.id());
         }
 
         else {

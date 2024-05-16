@@ -25,5 +25,23 @@
     "state": "MAIN_MENU",
     "id": 6335071987,
     "baseState": "MAIN_MENU"
+  },
+  {
+    "username": "AI_JavaBackend",
+    "firstname": "ZUBAYR",
+    "lastname": "👑",
+    "phoneNumber": "+998935513634",
+    "state": "MAIN_MENU",
+    "id": 6343483561,
+    "baseState": "MAIN_MENU"
+  },
+  {
+    "username": "umar_successor",
+    "firstname": "ℕ𝕚𝕪𝕠𝕫𝕓𝕠𝕪𝕖𝕧👨‍💻",
+    "lastname": null,
+    "phoneNumber": "998884063993",
+    "state": "MAIN_MENU",
+    "id": 6532431492,
+    "baseState": "MAIN_MENU"
   }
 ]
