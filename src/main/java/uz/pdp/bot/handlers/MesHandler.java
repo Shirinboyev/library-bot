@@ -43,6 +43,9 @@ public class MesHandler extends BaseHandler {
         }
         else if (Objects.equals(text,"Search Book")) {
             SendMessage sendMessage = new SendMessage(from.id(),"Janrlardan brini tanlang");
+            if (text.equals("Back")){
+                messageMaker.handleBackButton(from.id());
+            }
             sendMessage.replyMarkup(messageMaker.selectBookGenre());
 
             bot.execute(sendMessage);
@@ -61,7 +64,18 @@ public class MesHandler extends BaseHandler {
                     """;
             bot.execute(new SendMessage( from.id(),fantasticBook));
 
-        } else if (Objects.equals(text,"Badiy Book")) {
+        } else if (Objects.equals(text,"Romantic Book")){
+            String romantikBook = """
+                    1. /Ravshan_Xalq_dostoni
+                    2. /Alpomish
+                    3. /Farhod_Shirin
+                    4. /Tosiqlarga_qaramay_sevdik
+                    """;
+            bot.execute(new SendMessage( from.id(),romantikBook));
+
+        }
+
+        else if (Objects.equals(text,"Badiy Book")) {
             String badiyBook = """
                     1. /Abdulla_Qahhor_Hikoyalari
                     2. /Anor_Oq_korfaz
@@ -73,7 +87,18 @@ public class MesHandler extends BaseHandler {
                     """;
             bot.execute(new SendMessage( from.id(),badiyBook));
 
-        } else {
+        }
+        else if (Objects.equals(text,"Diniy Books")){
+            String diniyBooks = """
+                    1. /Duolar_kitobi
+                    2. /men_ham_namoz_oqiyman
+                    3. /Paygambarlar_tarixi
+                    4. /Suralar
+                    """;
+            bot.execute(new SendMessage( from.id(),diniyBooks));
+        }
+
+        else {
             String baseStateString = curUser.getBaseState();
             BaseState baseState = BaseState.valueOf(baseStateString);
             if (Objects.equals(baseState, BaseState.MAIN_MENU)) {
@@ -98,43 +123,28 @@ public class MesHandler extends BaseHandler {
             case "/Daydi_qizning_daftari" -> sendDocument(new File("src/main/resources/badiyBooks/daydi_qizning_daftari.pdf"));
             case "/Gafur_Gulom_shum_bola" -> sendDocument(new File("src/main/resources/badiyBooks/G‘ofur G‘ulom shum bola.pdf"));
             case "/Otkish_Hoshimov_Dunyoning_Ishlari" -> sendDocument(new File("src/main/resources/badiyBooks/O'tkir H - Dunyoning ishlari.pdf"));
+
+            case "/Ravshan_Xalq_dostoni" -> sendDocument(new File("src/main/resources/romantik/2.Ravshan - Xalq dostoni.pdf"));
+            case "/Alpomish" -> sendDocument(new File("src/main/resources/romantik/Alpomish.pdf"));
+            case "/Farhod_Shirin" -> sendDocument(new File("src/main/resources/romantik/Farhod va shirin.pdf"));
+            case "/Tosiqlarga_qaramay_sevdik" -> sendDocument(new File("src/main/resources/romantik/Mirach-Chagriy-Oqtosh-Tosiqlarga-qaramay-sevdik.pdf"));
+
+            case "/Duolar_kitobi" -> sendDocument(new File("src/main/resources/diniy/duolar-kitobi.pdf"));
+            case "/men_ham_namoz_oqiyman" -> sendDocument(new File("src/main/resources/diniy/men_ham_namoz_uqiyman.pdf"));
+            case "/Paygambarlar_tarixi" -> sendDocument(new File("src/main/resources/diniy/Muhammad-Sayyid-Tantoviy-Paygambarlar-Tarixi.pdf"));
+            case "/Suralar" -> sendDocument(new File("src/main/resources/diniy/Suralar-kitobi-1.pdf"));
+
         }
+
     }
+
+    private void searchBookState() {
+    }
+
     public void sendDocument(File file){
         Long chatId = update.message().chat().id();
         SendDocument sendDocument = new SendDocument(chatId,file);
         bot.execute(sendDocument);
-    }
-
-    private void searchBookState() {
-        Message message = update.message();
-        if (message == null) {
-            // Agar habar bo'sh bo'lsa, qaytib ketamiz
-            return;
-        }
-        String text = message.text();
-        if (text != null && !text.isEmpty()) {
-            List<Book> searchResults = performSearch(text);
-            sendSearchResults(searchResults);
-        } else {
-            bot.execute(new SendMessage(curUser.getId(), "You didn't enter any text for searching."));
-        }
-    }
-
-    private List<Book> performSearch(String searchText) {
-        return bookService.searchBooks(searchText);
-    }
-
-    private void sendSearchResults(List<Book> searchResults) {
-        if (searchResults.isEmpty()) {
-            bot.execute(new SendMessage(curUser.getId(), "No books found matching your search."));
-        } else {
-            StringBuilder resultMessage = new StringBuilder("Search results:\n");
-            for (Book book : searchResults) {
-                resultMessage.append("- ").append(book.getName()).append("\n");
-            }
-            bot.execute(new SendMessage(curUser.getId(), resultMessage.toString()));
-        }
     }
 
     private void addBookState() {

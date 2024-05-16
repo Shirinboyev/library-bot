@@ -7,5 +7,23 @@
     "state": "MAIN_MENU",
     "id": 1712225965,
     "baseState": "MAIN_MENU"
+  },
+  {
+    "username": "JavaBackend_AI",
+    "firstname": "G\u0027ayrat Shirinboyev 👑",
+    "lastname": null,
+    "phoneNumber": "998973956707",
+    "state": "MAIN_MENU",
+    "id": 5980239060,
+    "baseState": "MAIN_MENU"
+  },
+  {
+    "username": "islom2o_o5",
+    "firstname": "islom",
+    "lastname": null,
+    "phoneNumber": "+998500548805",
+    "state": "MAIN_MENU",
+    "id": 6335071987,
+    "baseState": "MAIN_MENU"
   }
 ]

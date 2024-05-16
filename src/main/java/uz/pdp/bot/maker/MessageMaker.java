@@ -3,9 +3,13 @@ package uz.pdp.bot.maker;
 import com.pengrad.telegrambot.model.request.*;
 import com.pengrad.telegrambot.request.SendDocument;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.sun.tools.javac.Main;
 import uz.pdp.backend.model.user.MyUser;
 import uz.pdp.bot.states.BaseState;
+import uz.pdp.bot.states.child.MainState;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -46,6 +50,11 @@ public class MessageMaker {
                 {new KeyboardButton("Back")}
         };
         return new ReplyKeyboardMarkup(buttons).oneTimeKeyboard(true).resizeKeyboard(true);
+    }
+    private Map<Long, BaseState> previousStateMap = new HashMap<>();
+
+    public BaseState handleBackButton(long userId) {
+        return previousStateMap.getOrDefault(userId, BaseState.MAIN_MENU); // Return previous state or default to main menu state
     }
 
 }
