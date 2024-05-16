@@ -102,7 +102,7 @@ public class MesHandler extends BaseHandler {
             bot.execute(new SendMessage( from.id(),diniyBooks));
         }
         else if(Objects.equals(text,"Back")){
-            messageMaker.handleBackButton(from.id());
+            mainMenu();
         }
 
         else {
