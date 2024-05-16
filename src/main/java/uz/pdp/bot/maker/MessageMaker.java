@@ -10,7 +10,6 @@ import java.util.Objects;
 
 
 public class MessageMaker {
-
     public SendMessage mainMenu(MyUser curUser) {
         SendMessage sendMessage = new SendMessage(curUser.getId(), "Choose Menu");
         KeyboardButton[][] buttons = {
@@ -18,9 +17,14 @@ public class MessageMaker {
         };
         if (Objects.equals(curUser.getBaseState(), BaseState.SEARCH_BOOK_STATE.name())) {
             buttons = new KeyboardButton[][]{
-                    {new KeyboardButton("Fantastik Book"), new KeyboardButton("Badiy Book"), new KeyboardButton("Romantik Book")}
+                    {new KeyboardButton("Fantastik Book"), new KeyboardButton("Badiy Book"), new KeyboardButton("Romantik Book")},
+                    {new KeyboardButton("Back")}
             };
         }
+        else {
+
+        }
+
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(buttons).oneTimeKeyboard(true).resizeKeyboard(true);
         sendMessage.replyMarkup(replyKeyboardMarkup);
         return sendMessage;
@@ -37,9 +41,9 @@ public class MessageMaker {
     }
     public Keyboard selectBookGenre(){
         KeyboardButton[][] buttons = {
-                {new KeyboardButton("Fantastic Book"),
-                        new KeyboardButton("Badiy Book"),
-                        new KeyboardButton("Romantic Book")}
+                {new KeyboardButton("Fantastic Book"),new KeyboardButton("Badiy Book")},
+                {new KeyboardButton("Romantic Book"),new KeyboardButton("Diniy Books")},
+                {new KeyboardButton("Back")}
         };
         return new ReplyKeyboardMarkup(buttons).oneTimeKeyboard(true).resizeKeyboard(true);
     }

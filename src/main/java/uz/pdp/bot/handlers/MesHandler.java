@@ -139,16 +139,6 @@ public class MesHandler extends BaseHandler {
 
     private void addBookState() {
     }
-
-    private void fantastikState() {
-    }
-
-    private void badiyState() {
-    }
-
-    private void romantikState() {
-    }
-
     private void mainState() {
         String stateStr = curUser.getState();
         MainState state = MainState.valueOf(stateStr);
